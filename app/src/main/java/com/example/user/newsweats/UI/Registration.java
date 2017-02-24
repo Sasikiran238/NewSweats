@@ -1,6 +1,7 @@
 package com.example.user.newsweats.UI;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -93,7 +94,17 @@ public class Registration extends AppCompatActivity {
 
                     if(pass.equals(repass)){
 
-                        mAuth.createUserWithEmailAndPassword(email,pass);
+                        mAuth.createUserWithEmailAndPassword(email,pass).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                            @Override
+                            public void onComplete(@NonNull Task<AuthResult> task) {
+                                if (task.isSuccessful()) {
+                                    Toast.makeText(Registration.this, "Successfully registered !!! Login to Continue ..", Toast.LENGTH_LONG).show();
+                                    startActivity(new Intent(Registration.this,MainAct.class));
+                                } else {
+                                    Toast.makeText(Registration.this, "Registration Error", Toast.LENGTH_LONG).show();
+                                }
+                            }
+                        });
 
 
 

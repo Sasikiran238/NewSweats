@@ -3,8 +3,7 @@ package com.example.user.newsweats.Controllers;
 import android.os.AsyncTask;
 import android.util.Log;
 
-import com.example.user.newsweats.Models.ImageItems;
-import com.example.user.newsweats.Models.ListItems;
+import com.example.user.newsweats.Models.ImageUrl;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -19,8 +18,8 @@ import java.util.ArrayList;
 
 public class ImageApi extends AsyncTask<String,Void,ArrayList> {
 
-    ArrayList<ImageItems> list_finish;
-    ImageItems imageItems;
+    ArrayList<ImageUrl> list_finish;
+    ImageUrl imageUrl;
 
     String image;
     protected void onpreexecute(){
@@ -42,44 +41,32 @@ public class ImageApi extends AsyncTask<String,Void,ArrayList> {
             Log.e("InBack  afterurl",jsonstring);
 
 
-            JSONArray jsonArticleArray=new JSONArray(jsonstring);
-//
 
 //
-            Log.e("InJsonf  Loop","inside artical");
+            JSONObject jsonObject = new JSONObject(jsonstring).getJSONObject("photos");
+            JSONArray jsonArray = jsonObject.getJSONArray("photo");
+            for(int i=0;i<=jsonArray.length();i++)
+            {
 
-            for(int a=0;a<100;a++){
-
-                Log.e("InJsonf  Loop",""+a+jsonArticleArray.length());
-                // article Objects
-
-
-
-                JSONObject articleObject=jsonArticleArray.getJSONObject(a);
-
-                String image=articleObject.getString("post_url");
-
-                Log.d("......................","---------------------------");
-                Log.e("InJsonf  Loop","inside artical"+image);
-
-                Log.e("IN back","before setdisp");
-
-
-                imageItems=new ImageItems(image);
-
-
-
-                list_finish.add(imageItems);
-
-
+                JSONObject temp = jsonArray.getJSONObject(i);
+                String imgUrl = GenerateImageURL(temp.getString("farm"),temp.getString("server"),temp.getString("id"),temp.getString("secret"));
+//                Gallery gallery = new Gallery(imgUrl,temp.getString("title"));
+//                imageArrayList.add(gallery);
+                imageUrl=new ImageUrl(imgUrl);
+                list_finish.add(imageUrl);
 
             }
 
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        } catch (JSONException e) {
-            e.printStackTrace();
+
+
+
+
+            } catch (MalformedURLException e1) {
+            e1.printStackTrace();
+        } catch (JSONException e1) {
+            e1.printStackTrace();
         }
+
 
         return list_finish;
     }

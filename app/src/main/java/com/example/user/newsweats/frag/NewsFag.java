@@ -54,7 +54,7 @@ public class NewsFag extends Fragment {
         context=inflater.getContext();
 
 
-         fab = (FloatingActionButton)rootView.findViewById(R.id.fabfullimage);
+         fab = (FloatingActionButton)rootView.findViewById(R.id.fab);
 
 
 
@@ -74,6 +74,7 @@ public class NewsFag extends Fragment {
                 recycleListView.setAdapter(reCycleAdapter);
                 reCycleAdapter.setOnItemClickListener(onItemClickListener);
             }else {
+
 
             }
 
@@ -115,10 +116,5 @@ public class NewsFag extends Fragment {
            startActivity(intent);
         }
     };
-    @Override
-    public void onResume() {
-        super.onResume();
-
-    }
 
 }

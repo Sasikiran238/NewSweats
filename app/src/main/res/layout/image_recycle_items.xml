@@ -13,26 +13,18 @@
 
 
     <ImageView
-    android:layout_width="386dp"
-    android:layout_height="239dp"
-    android:id="@+id/img_place" />
-
-    <!-- Used for the ripple effect on touch -->
+        android:layout_width="match_parent"
+        android:layout_height="239dp"
+        android:scaleType="centerCrop"
+        android:id="@+id/img_place"
+        android:layout_weight="1" />
 
     <LinearLayout
-        android:id="@+id/mainHolder"
+        android:id="@+id/imagemainHolder"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="?android:selectableItemBackground"
-        android:orientation="horizontal" />
-
-    <LinearLayout
-        android:id="@+id/placeNameHolder"
-        android:layout_width="match_parent"
-        android:layout_height="45dp"
-        android:layout_gravity="bottom"
-        android:orientation="horizontal">
-
+        android:orientation="horizontal" >
 
     </LinearLayout>
 

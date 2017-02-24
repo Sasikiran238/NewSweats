@@ -21,7 +21,6 @@ public class DetailImage extends AppCompatActivity {
 
         full_imageView=(ImageView)findViewById(R.id.ImagesView);
 
-
         Glide.with(DetailImage.this).load(intent.getStringExtra("fullImage")).diskCacheStrategy( DiskCacheStrategy.SOURCE )
                 .into(full_imageView);
     }

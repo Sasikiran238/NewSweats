@@ -13,7 +13,7 @@ public class Preferences {
     SharedPreferences sharedPreferences;
     SharedPreferences settingShare;
     SharedPreferences.Editor editor;
-
+    SharedPreferences UrlShare;
     public Preferences(Context context) {
         this.con=context;
         sharedPreferences=context.getSharedPreferences("Logstate",con.MODE_PRIVATE);
@@ -38,4 +38,7 @@ public class Preferences {
         return  sharedPreferences.getBoolean("loginmode",false);
     }
 
+    public String Url(String url){
+        return "";
+    }
 }
