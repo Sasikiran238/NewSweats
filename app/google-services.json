@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "407705466708",
+    "firebase_url": "https://newsweats.firebaseio.com",
+    "project_id": "newsweats",
+    "storage_bucket": "newsweats.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:407705466708:android:9f123b3fe2187626",
+        "android_client_info": {
+          "package_name": "com.example.user.newsweats"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "407705466708-odehlskf8amnn2tt8uqv628quafhfcec.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.user.newsweats",
+            "certificate_hash": "7293128b853051b5d835ffeb41e26769626d4c56"
+          }
+        },
+        {
+          "client_id": "407705466708-qfposu434dqh06m15bfjh5cu8p0gc75g.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC_eKglnrhlLXu_r0bdcKQyUooX2Ha_9II"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "407705466708-qfposu434dqh06m15bfjh5cu8p0gc75g.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#141516</color>
+    <color name="colorPrimaryDark">#383e4b</color>
+    <color name="colorAccent">#8dc03b</color>
+    <color name="big_but_a">#71000000</color>
+    <color name="big_but_b">#b5000000</color>
+    <!--main back color -->
+    <color name="log_bg">#3a3b40</color>
+
+
+
+    <color name="white">#ffffff</color>
+    <color name="reg_bg">#b9000000</color>
+    <color name="edit_txt_bg">#fefeff</color>
+    <color name="reg_text">#a7b6e2</color>
+    <color name="main_text">#e9fdff</color>
+
+    <!--text box colors-->
+    <color name="textbox_inner">#ffffff</color>
+    <color name="textbox_outer">#3e3e40</color>
+    <color name="textbox_text">#747376</color>
+
+    <!--button colors-->
+    <color name="button_sign">#23b1a9</color>
+    <color name="button_log">#103b65</color>
+    <color name="white_light">#ebf1f0</color>
+
+    <!--registration colors-->
+    <color name="gmail">#FFF32E2A</color>
+
+
+
+    <color name="itemsback">#789c9999</color>
+    <color name="fabback">#9fff0000</color>
+    <color name="searchback">#FF67A8C5</color>
+    <color name="searchout">#9d7ea0c2</color>
+</resources>
