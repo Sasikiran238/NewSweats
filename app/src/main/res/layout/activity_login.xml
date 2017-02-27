@@ -100,7 +100,7 @@
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:layout_marginTop="15dp"
-        android:text="Sign in"
+        android:text="Sign up"
         android:textSize="@dimen/normaltext"
         android:textColor="@color/white"
         android:textAllCaps="false" />
@@ -118,13 +118,5 @@
         android:layout_marginTop="15dp"
         android:textAllCaps="false" />
 
-    <TextView
-        android:id="@+id/textView4"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="30dp"
-        android:layout_marginTop="25dp"
-        android:text="forgot password ?"
-        android:textColor="@color/white" />
 
 </LinearLayout>

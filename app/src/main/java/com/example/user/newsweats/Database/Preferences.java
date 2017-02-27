@@ -10,35 +10,56 @@ import android.content.SharedPreferences;
 public class Preferences {
 
     Context con;
-    SharedPreferences sharedPreferences;
+    SharedPreferences logShare;
     SharedPreferences settingShare;
-    SharedPreferences.Editor editor;
-    SharedPreferences UrlShare;
+    SharedPreferences newsShare;
+    SharedPreferences imageShare;
+
+    SharedPreferences.Editor logEdit;
+    SharedPreferences.Editor SettingEdit;
+    SharedPreferences.Editor newsEdit;
+    SharedPreferences.Editor imageEdit;
+
     public Preferences(Context context) {
         this.con=context;
-        sharedPreferences=context.getSharedPreferences("Logstate",con.MODE_PRIVATE);
+
+        logShare=context.getSharedPreferences("Logstate",con.MODE_PRIVATE);
         settingShare=context.getSharedPreferences("settings",con.MODE_PRIVATE);
-
-        editor=settingShare.edit();
-        editor=sharedPreferences.edit();
-
+        newsShare=context.getSharedPreferences("newsApi",con.MODE_PRIVATE);
+        imageShare=context.getSharedPreferences("image",con.MODE_PRIVATE);
     }
 
     public  void setloggedin(boolean login){
-         editor.putBoolean("loginmode",login);
-        editor.commit();
+        logEdit=logShare.edit();
+         logEdit.putBoolean("loginmode",login);
+        logEdit.commit();
 
     }
     public void setSettings(String theme){
-
+        SettingEdit=settingShare.edit();
     }
 
     public  boolean loggedin(){
 
-        return  sharedPreferences.getBoolean("loginmode",false);
+        return  logShare.getBoolean("loginmode",false);
     }
 
-    public String Url(String url){
-        return "";
+    public void putNews(String api){
+        newsEdit=newsShare.edit();
+        newsEdit.putString("newsUrl",api);
+        newsEdit.apply();
+    }
+    public String getNews(){
+        return newsShare.getString("newsUrl",null);
+    }
+
+
+    public void putImage(String api){
+        imageEdit=imageShare.edit();
+        imageEdit.putString("imageUrl",api);
+        imageEdit.apply();
+    }
+    public String getImage(){
+        return imageShare.getString("imageUrl",null);
     }
 }

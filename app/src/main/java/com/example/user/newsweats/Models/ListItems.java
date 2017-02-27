@@ -14,13 +14,23 @@ public class ListItems {
     //    private String date;
     private String desc;
     private String image;
+    private String url;
 
 
-    public ListItems(String title, String desc,String image) {
+    public ListItems(String title, String desc,String image,String url) {
         Log.e("IN Pojo","Inside constructor");
         this.title = title;
         this.desc = desc;
         this.image=image;
+        this.url=url;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
     }
 
     public String getTitle() {

@@ -35,4 +35,9 @@
     <color name="fabback">#9fff0000</color>
     <color name="searchback">#FF67A8C5</color>
     <color name="searchout">#9d7ea0c2</color>
+    <!--flash Error-->
+    <color name="flash">#000000</color>
+
+    <color name="imageBack">#000000</color>
+
 </resources>

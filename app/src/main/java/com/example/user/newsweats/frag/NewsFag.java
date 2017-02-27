@@ -44,7 +44,7 @@ public class NewsFag extends Fragment {
     ReCycleAdapter reCycleAdapter;
     FloatingActionButton fab;
 
-    boolean isListView=true;
+    boolean isListView=false;
 
     private StaggeredGridLayoutManager mStaggeredLayoutManager;
     @Override
@@ -58,7 +58,7 @@ public class NewsFag extends Fragment {
 
 
 
-        apiAsyn=new ApiAsyn();
+        apiAsyn=new ApiAsyn(getContext());
 
         recycleListView=(RecyclerView) rootView.findViewById(R.id.newsRecyclers);
         mStaggeredLayoutManager = new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL);
@@ -66,17 +66,17 @@ public class NewsFag extends Fragment {
         conChecker=new ConChecker(context);
 
         try {
-            if(conChecker.isNetworkAvailable()) {
+//            if(conChecker.isNetworkAvailable()) {
                 listfinal = apiAsyn.execute("https://newsapi.org/v1/articles?source=bbc-news&sortBy=top&apiKey=4e878f5b065e4592be3503001cb494b9").get();
                 Log.e(";;;;;;;;;;;;;;;;;;", "haaaaaaaaaaaaaaaaaaaaaaaaii frooom ooooon cllllllllllllllllll");
                 reCycleAdapter = new ReCycleAdapter(listfinal, context);
                 Log.e(";;;;;;;;;;;;;;;;;;", "haaaaaaaaaaaaaaaaaaaaaaaaii frooom ooooon after adapter");
                 recycleListView.setAdapter(reCycleAdapter);
                 reCycleAdapter.setOnItemClickListener(onItemClickListener);
-            }else {
-
-
-            }
+//            }else {
+//
+//
+//            }
 
         } catch (InterruptedException e) {
             e.printStackTrace();
@@ -107,11 +107,12 @@ public class NewsFag extends Fragment {
         @Override
         public void onItemClick(View v, int position) {
             ListItems items=listfinal.get(position);
-            Toast.makeText(getContext(),"Clicked"+position,Toast.LENGTH_SHORT).show();
+//            Toast.makeText(getContext(),"Clicked"+position,Toast.LENGTH_SHORT).show();
             Intent intent=new Intent(getContext(),DetailActivity.class);
             intent.putExtra("discp",items.getDesc());
             intent.putExtra("Image",items.getImage());
             intent.putExtra("title",items.getTitle());
+            intent.putExtra("url",items.getUrl());
             Log.e("=============",items.getDesc());
            startActivity(intent);
         }

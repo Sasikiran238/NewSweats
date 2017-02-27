@@ -1,21 +1,28 @@
 package com.example.user.newsweats;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.os.Handler;
 import android.preference.Preference;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.InputType;
 import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.example.user.newsweats.Controllers.ConChecker;
 import com.example.user.newsweats.Database.Preferences;
+import com.example.user.newsweats.UI.Flash;
 import com.example.user.newsweats.UI.MainAct;
 
 
@@ -34,6 +41,9 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.GoogleAuthProvider;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+
+import cn.pedant.SweetAlert.SweetAlertDialog;
+
 public class Login extends AppCompatActivity {
 
 
@@ -43,7 +53,7 @@ public class Login extends AppCompatActivity {
     Context context;
 
     Button but_gmail;
-    Button but_signin;
+    Button but_signup;
 
     ConChecker conChecker;
     DatabaseReference databaseReference;
@@ -51,46 +61,151 @@ public class Login extends AppCompatActivity {
 
     FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener myaythstate;
+
+    Button butLogin;
+
+
+    EditText txtEmail;
+    EditText txtPass;
+    SweetAlertDialog pDialog;
+
+
+//    loginpage with gmail login ,firebaselogin
+
+
+    CheckBox check;
+    private int passwordNotVisible=1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         context=Login.this;
+        pDialog= new SweetAlertDialog(Login.this, SweetAlertDialog.PROGRESS_TYPE);
+
         mAuth=FirebaseAuth.getInstance();
         databaseReference= FirebaseDatabase.getInstance().getReference();
         conChecker=new ConChecker(context);
+        pref=new Preferences(Login.this);
+
+        check=(CheckBox)findViewById(R.id.checkBox);
+
+
+
 
         but_gmail=(Button)findViewById(R.id.button_gmail);
-        but_signin=(Button)findViewById(R.id.button_signin);
-        but_signin.setOnClickListener(new View.OnClickListener() {
+        but_signup=(Button)findViewById(R.id.button_signin);
+        butLogin=(Button)findViewById(R.id.button_Login);
+        txtEmail=(EditText)findViewById(R.id.editText_logname);
+        txtPass=(EditText)findViewById(R.id.editText_pass);
+
+
+
+        but_signup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent=new Intent(Login.this, Registration.class);
                 startActivity(intent);
             }
         });
-        if(conChecker.isNetworkAvailable()) {
-            pref = new Preferences(context);
-            if (pref.loggedin()) {
-                Intent intent = new Intent(Login.this, MainAct.class);
-                startActivity(intent);
-            }else {
+        check.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(check.isChecked()){
+                    txtPass.setInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
+                    passwordNotVisible = 0;
+                }else {
+                    txtPass.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+                    passwordNotVisible = 1;
+                }
+            }
+        });
+        butLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
-                but_gmail.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        signIn();
-                    }
-                });
+                pDialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
+                pDialog.setTitleText("Loading");
+                pDialog.setCancelable(false);
+                pDialog.show();
+               String user=txtEmail.getText().toString();
+               String pass=txtPass.getText().toString();
+
+
+
+                if(conChecker.isNetworkAvailable()) {
+                    mAuth.signInWithEmailAndPassword(user, pass)
+                            .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                                @Override
+                                public void onComplete(@NonNull Task<AuthResult> task) {
+                                    if (task.isSuccessful()) {
+                                        Toast.makeText(getApplicationContext(), "Login Successfull", Toast.LENGTH_LONG).show();
+                                        pref.setloggedin(true);
+                                        Intent i = new Intent(Login.this, MainAct.class);
+                                        startActivity(i);
+
+                                    } else {
+                                        Toast.makeText(Login.this, "Wrong Username Password", Toast.LENGTH_SHORT).show();
+                                    }
+                                if(pDialog.isShowing()){
+                                    pDialog.dismissWithAnimation();}
+                                }
+                            });
+                }else {
+                    new SweetAlertDialog(Login.this, SweetAlertDialog.WARNING_TYPE)
+                            .setTitleText("Check Network Connection")
+                            .setContentText("Sorry!")
+                            .setConfirmText("Ok")
+                            .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                                @Override
+                                public void onClick(SweetAlertDialog sDialog) {
+                                    sDialog.dismissWithAnimation();
+
+                                }
+                            })
+                            .show();
+                }
+
             }
-            }
+
+        });
+
+        if(conChecker.isNetworkAvailable()) {
+
+            but_gmail.setOnClickListener(new View.OnClickListener() {
+
+                @Override
+                public void onClick(View v) {
+                    pDialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
+                    pDialog.setTitleText("Loading");
+                    pDialog.setCancelable(false);
+                    pDialog.show();
+                    signIn();
+                }
+            });
+
+        }else{
+            new SweetAlertDialog(Login.this, SweetAlertDialog.WARNING_TYPE)
+                    .setTitleText("Check Network Connection")
+                    .setContentText("Sorry !!")
+                    .setConfirmText("Ok")
+                    .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                        @Override
+                        public void onClick(SweetAlertDialog sDialog) {
+                            sDialog.dismissWithAnimation();
+
+                        }
+                    })
+                    .show();
+        }
+
         myaythstate=new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
 
-
                 if(firebaseAuth.getCurrentUser()!=null){
 
+                  if(pDialog.isShowing()){
+                    pDialog.dismissWithAnimation();}
                     Intent in=new Intent(Login.this,MainAct.class);
                     startActivity(in);
                 }
@@ -120,14 +235,7 @@ public class Login extends AppCompatActivity {
                     }
                 }).addApi(Auth.GOOGLE_SIGN_IN_API,gso)
                 .build();
-//        but_savedb=(Button)findViewById(R.id.button_save);
-//        but_savedb.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//
-//                databaseReference.child("Name").setValue(txt_name.getText().toString());
-//            }
-//        });
+
         final LinearLayout linearLayout = (LinearLayout) findViewById(R.id.activity_logparent);
 
         linearLayout.setOnClickListener(new View.OnClickListener() {
@@ -137,7 +245,8 @@ public class Login extends AppCompatActivity {
                 imm.hideSoftInputFromWindow(linearLayout.getWindowToken(), 0);
             }
         });
-    }
+        }
+
     private void signIn() {
         Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
         startActivityForResult(signInIntent, RC_SIGN_IN);
@@ -145,6 +254,8 @@ public class Login extends AppCompatActivity {
     @Override
     public void onStart() {
         super.onStart();
+
+
         mAuth.addAuthStateListener(myaythstate);
     }
     @Override

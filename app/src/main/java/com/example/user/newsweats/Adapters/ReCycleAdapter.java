@@ -23,7 +23,7 @@ import java.util.ArrayList;
  */
 
 public class ReCycleAdapter  extends RecyclerView.Adapter<ReCycleAdapter.Myholder> {
-    LayoutInflater inflater;
+
     ArrayList<ListItems> list;
     OnItemClickListener mItemClickListener;
 

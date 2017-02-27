@@ -2,7 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:weightSum="1">
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -11,16 +12,15 @@
         <ImageView
             android:id="@+id/newsImages"
             android:layout_width="match_parent"
-            android:layout_height="220dp"
+            android:layout_height="match_parent"
             android:scaleType="centerCrop"
             android:transitionName="tImage" />
 
         <LinearLayout
             android:id="@+id/llEditTextHolder"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal"
-            android:background="#95000000">
+            android:layout_height="260dp"
+            android:orientation="horizontal">
 
         </LinearLayout>
 
@@ -33,7 +33,7 @@
         android:layout_height="wrap_content">
 
         <LinearLayout
-            android:id="@+id/placeNameHolder"
+            android:id="@+id/newsTitleplace"
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:transitionName="tNameHolder">
@@ -55,12 +55,19 @@
 
     <TextView
         android:layout_width="357dp"
-        android:layout_height="229dp"
+        android:layout_height="106dp"
         android:layout_marginLeft="15dp"
         android:layout_marginTop="0dp"
         android:text="MY ACTIVITIES"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:textColor="@android:color/black"
-        android:id="@+id/newsDiscp" />
+        android:id="@+id/newsDiscp"
+        android:layout_weight="0.79" />
+
+    <TextView
+        android:text="for more info click heading"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView6" />
 
 </LinearLayout>
