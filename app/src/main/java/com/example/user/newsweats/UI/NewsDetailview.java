@@ -12,29 +12,34 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.example.user.newsweats.Controllers.ConChecker;
+import com.example.user.newsweats.Controllers.NetworkConnectionChecker;
 import com.example.user.newsweats.R;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
 
+/**
+ * Created by sasikiran on 28/2/17.
+ * version 1.0
+ */
 //Detail Main View For User  with taped news,images
 
-public class DetailActivity extends AppCompatActivity {
+public class NewsDetailview extends AppCompatActivity {
 
     ImageView news_img;
     TextView discp_news;
     TextView title;
     LinearLayout newstitlePlace;
-    ConChecker conChecker;
+    NetworkConnectionChecker networkConnectionChecker;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
-
         final Intent intent = getIntent();
-        conChecker = new ConChecker(DetailActivity.this);
+        networkConnectionChecker = new NetworkConnectionChecker(NewsDetailview.this);
+
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
@@ -50,14 +55,16 @@ public class DetailActivity extends AppCompatActivity {
         newstitlePlace.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.e("onclick", intent.getStringExtra("url"));
-                if (conChecker.isNetworkAvailable()) {
 
-                    Intent intent1 = new Intent(DetailActivity.this, NewsWeb.class);
+                if (networkConnectionChecker.isNetworkAvailable()) {
+
+                    Intent intent1 = new Intent(NewsDetailview.this, NewsWebview.class);
                     intent1.putExtra("newsUrl", intent.getStringExtra("url"));
                     startActivity(intent1);
+
                 } else {
-                    new SweetAlertDialog(DetailActivity.this, SweetAlertDialog.WARNING_TYPE)
+
+                    new SweetAlertDialog(NewsDetailview.this, SweetAlertDialog.WARNING_TYPE)
                             .setTitleText("Check Network Connection")
                             .setContentText("Sorry !!")
                             .setConfirmText("Ok")
@@ -68,19 +75,26 @@ public class DetailActivity extends AppCompatActivity {
                                 }
                             })
                             .show();
+
                 }
             }
         });
-        Glide.with(DetailActivity.this).load(intent.getStringExtra("Image")).diskCacheStrategy(DiskCacheStrategy.SOURCE)
+
+        Glide.with(NewsDetailview.this).load(intent.getStringExtra("Image"))
+                .diskCacheStrategy(DiskCacheStrategy.SOURCE)
                 .into(news_img);
 
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+
         if (item.getItemId() == android.R.id.home) {
+
             finish();
+
         }
+
         return super.onOptionsItemSelected(item);
     }
 }

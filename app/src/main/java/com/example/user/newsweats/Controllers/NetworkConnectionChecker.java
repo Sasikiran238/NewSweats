@@ -5,19 +5,30 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 
 /**
- * Created by user on 21/2/17.
+ * Created by sasikiran on 21/2/17.
+ * version 1.0
  */
 
-public class ConChecker {
+//  checker for network availability
+public class NetworkConnectionChecker {
+
     Context con;
-    public ConChecker(Context context) {
+
+//    get context constructor
+    public NetworkConnectionChecker(Context context) {
+
         this.con=context;
+
     }
 
+//    network checker
     public boolean isNetworkAvailable() {
+
         ConnectivityManager connectivityManager
                 = (ConnectivityManager)con.getSystemService(con.CONNECTIVITY_SERVICE);
         NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
         return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+
     }
+
 }

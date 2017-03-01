@@ -8,6 +8,31 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_main">MainAct</string>
 
+    <!--Login-->
+    <string name="welcome">Welcome</string>
+    <string name="email">email</string>
+    <string name="password">password</string>
+    <string name="show_password">Show password</string>
+    <string name="log_in">Log in</string>
+    <string name="or">or</string>
+    <string name="sign_up">Sign up</string>
+    <string name="signin_with_gmail">Signin with Gmail</string>
+
+    <!--registration-->
+    <string name="registration_form">Registration form</string>
+    <string name="registeremail">Email</string>
+    <string name="registerpassword">password</string>
+    <string name="re_enter_password">re-enter password</string>
+    <string name="register">Register</string>
+
+    <!--Initial checker-->
+    <string name="take_a_relax_with_us">Take a relax with us</string>
+    <string name="newsweats">Newsweats</string>
+
+    <!--menu-->
+    <string name="exit">Exit</string>
+    <string name="logout">Logout</string>
+
 
     <array name="imageUrl">
         <item>

@@ -14,7 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:text="Registration form"
+        android:text="@string/registration_form"
         android:textAlignment="center"
         android:textColor="@color/white"
         android:textSize="@dimen/bigtext"
@@ -43,7 +43,7 @@
         android:layout_marginTop="15dp"
         android:ems="10"
         android:inputType="textEmailAddress"
-        android:hint="Email"
+        android:hint="@string/registeremail"
         android:background="@drawable/edit_box"
         android:textSize="@dimen/normaltext"
         android:paddingLeft="20dp" />
@@ -57,7 +57,7 @@
         android:layout_marginTop="15dp"
         android:background="@drawable/edit_box"
         android:ems="10"
-        android:hint="password"
+        android:hint="@string/registerpassword"
         android:inputType="textPassword"
         android:paddingLeft="20dp"
         android:textSize="@dimen/normaltext" />
@@ -70,7 +70,7 @@
         android:layout_marginRight="20dp"
         android:layout_marginTop="15dp"
         android:ems="10"
-        android:hint="re-enter password"
+        android:hint="@string/re_enter_password"
         android:background="@drawable/edit_box"
         android:inputType="textPassword"
         android:paddingLeft="20dp" />
@@ -83,7 +83,7 @@
         android:layout_marginRight="20dp"
         android:layout_marginTop="15dp"
         android:background="@color/button_sign"
-        android:text="Register"
+        android:text="@string/register"
         android:textSize="@dimen/normaltext"
         android:textAllCaps="false" />
 

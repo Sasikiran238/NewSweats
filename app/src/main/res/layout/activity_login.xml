@@ -17,7 +17,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
         android:fontFamily="sans-serif"
-        android:text="Welcome"
+        android:text="@string/welcome"
         android:textColor="@color/white"
         android:textAlignment="center"
         android:textSize="@dimen/bigtext"
@@ -33,7 +33,7 @@
         android:background="@drawable/edit_box"
 
         android:ems="10"
-        android:hint="email"
+        android:hint="@string/email"
         android:inputType="textPersonName"
         android:paddingLeft="10dp"
         android:textColorHint="@color/textbox_text"
@@ -50,7 +50,7 @@
         android:background="@drawable/edit_box"
 
         android:ems="10"
-        android:hint="password"
+        android:hint="@string/password"
         android:inputType="textPassword"
         android:paddingLeft="10dp"
         android:textColorHint="@color/textbox_text"
@@ -64,7 +64,7 @@
         android:layout_marginRight="20dp"
         android:layout_marginStart="200dp"
         android:layout_marginTop="15dp"
-        android:text="Show password"
+        android:text="@string/show_password"
         android:textColor="@color/white_light"
         android:layout_marginLeft="200dp" />
 
@@ -75,7 +75,7 @@
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:layout_marginTop="15dp"
-        android:text="Log in"
+        android:text="@string/log_in"
         android:textSize="@dimen/normaltext"
         android:background="@color/button_log"
         android:textColor="@color/white"
@@ -88,7 +88,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
-        android:text="or"
+        android:text="@string/or"
         android:textAlignment="center"
         android:textColor="@color/white" />
 
@@ -100,13 +100,13 @@
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:layout_marginTop="15dp"
-        android:text="Sign up"
+        android:text="@string/sign_up"
         android:textSize="@dimen/normaltext"
         android:textColor="@color/white"
         android:textAllCaps="false" />
 
     <Button
-        android:text="Signin with Gmail"
+        android:text="@string/signin_with_gmail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/button_gmail"

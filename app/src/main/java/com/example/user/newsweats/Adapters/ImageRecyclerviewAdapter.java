@@ -17,81 +17,97 @@ import com.example.user.newsweats.R;
 import java.util.ArrayList;
 
 /**
- * Created by user on 21/2/17.
+ * Created by sasikiran on 21/2/17.
+ * version 1.0
  */
 
-public class ImageRecycleAdapter extends RecyclerView.Adapter<ImageRecycleAdapter.Myhold> {
+// recycler adapter for image tab
+public class ImageRecyclerviewAdapter extends RecyclerView.Adapter<ImageRecyclerviewAdapter.ImageRecycleHolder> {
 
-
+//  Interface Object
     OnImageClicklistener onImageClicklistener;
-
+//  Context
     Context con;
+//  image url list
     ArrayList<ImageUrl> imageUrls;
 
-
-    //    inner class for holder......it holds the view id of items xml
-
-    public ImageRecycleAdapter(Context context, ArrayList<ImageUrl> arrayList) {
-        Log.e("IN Adapter", "Inside constructor");
+//  constructer  to get the context and imageurl list
+    public ImageRecyclerviewAdapter(Context context, ArrayList<ImageUrl> arrayList) {
 
         this.con = context;
         this.imageUrls = arrayList;
-        Log.e("IN Adapter", "Inside constructor after list_fin");
+
     }
 
-    public void setOnImageClicklistener(OnImageClicklistener onImageClicklistener) {
-        this.onImageClicklistener = onImageClicklistener;
-    }
-
+//  View holder inflation
     @Override
-    public ImageRecycleAdapter.Myhold onCreateViewHolder(ViewGroup parent, int viewType) {
+    public ImageRecyclerviewAdapter.ImageRecycleHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
-        Log.e("IN Adapter", "Inside oncreateViewholder");
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.image_recycle_items, parent, false);
-        return new Myhold(view);
+        return new ImageRecycleHolder(view);
 
     }
 
+//  Binding of holder to view
     @Override
-    public void onBindViewHolder(Myhold holder, int position) {
-        Log.e("IN Adapter", "Inside onbindViewholder");
+    public void onBindViewHolder(ImageRecycleHolder holder, int position) {
 
         ImageUrl imageUrl = imageUrls.get(position);
+//  Glide for load image on view and store asap
         Glide.with(con).load(imageUrl.getUrl()).diskCacheStrategy(DiskCacheStrategy.SOURCE)
                 .into(holder.image);
 
     }
 
+//  get list size
     @Override
     public int getItemCount() {
+
         return imageUrls.size();
     }
 
+//  Interface to pass cliked position
     public interface OnImageClicklistener {
+
         void onItemClicks(View view, int position);
+
     }
 
-    class Myhold extends RecyclerView.ViewHolder implements View.OnClickListener {
+//  setter to set position in object
+    public void setOnImageClicklistener(OnImageClicklistener onImageClicklistener) {
 
+        this.onImageClicklistener = onImageClicklistener;
 
+    }
+
+//  inner class for holder......it holds the view id of items xml
+    class ImageRecycleHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+
+//    imageView
         ImageView image;
-
+//   Layout background of image
         LinearLayout placeHolder;
 
-        public Myhold(View itemView) {
+//   Constructor for Holder
+        public ImageRecycleHolder(View itemView) {
+
             super(itemView);
-            Log.e("My holder", "Inside constructor");
             placeHolder = (LinearLayout) itemView.findViewById(R.id.imagemainHolder);
             image = (ImageView) itemView.findViewById(R.id.img_place);
             placeHolder.setOnClickListener(this);
+
         }
 
-
+//  Onclick listener
         @Override
         public void onClick(View v) {
+
             if (onImageClicklistener != null) {
+
                 onImageClicklistener.onItemClicks(itemView, getPosition());
+
             }
+
         }
     }
 
