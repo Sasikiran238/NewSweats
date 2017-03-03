@@ -1,12 +1,11 @@
 package com.example.user.newsweats;
 
 import android.content.Context;
-
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.text.InputType;
 import android.util.Log;
 import android.view.View;
@@ -20,13 +19,11 @@ import android.widget.Toast;
 import com.example.user.newsweats.Controllers.NetworkConnectionChecker;
 import com.example.user.newsweats.Database.Preferences;
 import com.example.user.newsweats.UI.MainTabbedAct;
-
-
 import com.example.user.newsweats.UI.Registration;
-import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -55,14 +52,14 @@ public class Login extends AppCompatActivity {
     Button but_signup;
     NetworkConnectionChecker networkConnectionChecker;
     DatabaseReference databaseReference;
-    private GoogleApiClient mGoogleApiClient;
     FirebaseAuth mAuth;
-    private FirebaseAuth.AuthStateListener myaythstate;
     Button butLogin;
     EditText txtEmail;
     EditText txtPass;
     SweetAlertDialog pDialog;
     CheckBox check;
+    private GoogleApiClient mGoogleApiClient;
+    private FirebaseAuth.AuthStateListener myaythstate;
     private int passwordNotVisible=1;
 
     @Override
@@ -117,7 +114,7 @@ public class Login extends AppCompatActivity {
             public void onClick(View v) {
 
                 pDialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
-                pDialog.setTitleText("Loading");
+                pDialog.setTitleText("Loging in...");
                 pDialog.setCancelable(false);
                 pDialog.show();
                String user=txtEmail.getText().toString();
@@ -132,7 +129,7 @@ public class Login extends AppCompatActivity {
 
                                     if (task.isSuccessful()) {
 
-                                        Toast.makeText(getApplicationContext(), "Login Successfull", Toast.LENGTH_LONG).show();
+                                        Toast.makeText(getApplicationContext(), "Login successfully", Toast.LENGTH_LONG).show();
                                         pref.setloggedin(true);
                                         Intent i = new Intent(Login.this, MainTabbedAct.class);
                                         startActivity(i);
@@ -178,7 +175,7 @@ public class Login extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     pDialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
-                    pDialog.setTitleText("Loading");
+                    pDialog.setTitleText("Siging with Gmail...");
                     pDialog.setCancelable(false);
                     pDialog.show();
                     signIn();
@@ -208,6 +205,7 @@ public class Login extends AppCompatActivity {
 
                   if(pDialog.isShowing()){
                     pDialog.dismissWithAnimation();}
+                    pref.setloggedin(true);
                     Intent in=new Intent(Login.this,MainTabbedAct.class);
                     startActivity(in);
                 }

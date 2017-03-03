@@ -4,9 +4,6 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
-import android.util.Log;
-import android.widget.EditText;
-
 
 import com.example.user.newsweats.Database.NewsDbHandler;
 import com.example.user.newsweats.Database.Preferences;
@@ -65,7 +62,7 @@ public class NewsApi extends AsyncTask<String,Void,ArrayList> {
 //      object of preference
         share=new Preferences(context);
 //        local json string reference
-        String jsonstring;
+        String jsonstring = null;
 //      connection check object
         networkConnectionChecker =new NetworkConnectionChecker(context);
         newsDbHandler=new NewsDbHandler(context);
@@ -76,7 +73,6 @@ public class NewsApi extends AsyncTask<String,Void,ArrayList> {
 //      http connection object
         NewsHttpHandler reqCon=new NewsHttpHandler();
 //      json from DB
-        ArrayList<String> dbJson;
 
         try {
 
@@ -87,30 +83,6 @@ public class NewsApi extends AsyncTask<String,Void,ArrayList> {
             if (networkConnectionChecker.isNetworkAvailable()) {
 
                 jsonstring = reqCon.httpreq(reqUrl);
-
-                if (!newsDbHandler.checkNews()) {
-
-                    newsDbHandler.insertNews(jsonstring);
-
-                }
-
-
-
-            } else {
-
-                dbJson = newsDbHandler.getNews();
-
-                if (dbJson.get(0) != "noData") {
-
-                    jsonstring = dbJson.get(0);
-
-                } else {
-
-                    jsonstring = null;
-
-                }
-            }
-
                 if (jsonstring != null) {
 
                     JSONObject jsonObject = new JSONObject(jsonstring);
@@ -120,16 +92,26 @@ public class NewsApi extends AsyncTask<String,Void,ArrayList> {
                     for (int a = 0; a < jsonArticleArray.length(); a++) {
 
                         JSONObject articleObject = jsonArticleArray.getJSONObject(a);
-                        String title_fin = articleObject.getString("title");
-                        String dis_fin = articleObject.getString("description");
+                        String titleFinal = articleObject.getString("title");
+                        String disFinal = articleObject.getString("description");
                         String image = articleObject.getString("urlToImage");
-                        String newsdetailurl = articleObject.getString("url");
-                        newsItems = new NewsItems(title_fin, dis_fin, image, newsdetailurl);
+                        String newsDetailurl = articleObject.getString("url");
+                        String allData = titleFinal + disFinal;
+
+                        newsDbHandler.insertNews(allData, titleFinal, disFinal, image, newsDetailurl);
+                        newsItems = new NewsItems(titleFinal, disFinal, image, newsDetailurl);
                         newsList.add(newsItems);
 
                     }
 
                 }
+
+            } else {
+
+                newsList = newsDbHandler.getNews();
+
+            }
+
 
 
         } catch (MalformedURLException e) {
